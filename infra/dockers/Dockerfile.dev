@@ -1,0 +1,9 @@
+FROM maven:3.9.5-eclipse-temurin-21-alpine
+
+WORKDIR /app
+
+COPY . /app
+
+RUN mvn install -DskipTests
+
+ENTRYPOINT ["mvn", "spring-boot:run"]

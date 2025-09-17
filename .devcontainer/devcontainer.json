@@ -1,0 +1,30 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "servicePorts": {
+    "8080": {
+      "label": "Spring Boot App",
+      "protocol": "http"
+    }
+  },
+  "forwardPorts": [8080],
+
+  "workspaceFolder": "/workspace",
+
+  "settings": {
+    "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:-UseGCOverheadLimit -Djava.net.useSystemProxies=true"
+  },
+
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "redhat.vscode-xml",
+    "vscjava.vscode-maven",
+    "pivotal.vscode-boot-devtools"
+  ],
+
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "app",
+  "shutdownAction": "stopCompose"
+}
