@@ -4,12 +4,12 @@
 FROM maven:3.9.5-eclipse-temurin-21-alpine AS base
 WORKDIR /app
 COPY pom.xml .
-RUN mvn -v -B dependency:go-offline
+RUN mvn -q -B dependency:go-offline
 
 # ---------- Build (package jar)
 FROM base AS build
 COPY src ./src
-RUN mvn -v -B package -DskipTests
+RUN mvn -q -B package -DskipTests
 
 # ---------- Production runtime
 FROM eclipse-temurin:21-jre-alpine AS prod
@@ -24,7 +24,7 @@ FROM maven:3.9.5-eclipse-temurin-21-alpine AS dev
 WORKDIR /app
 # Pre-fetch dependencies to speed up first run; source will be mounted at runtime
 COPY pom.xml .
-RUN mvn -v -B dependency:go-offline
+RUN mvn -q -B dependency:go-offline
 # Default command runs Spring Boot in dev mode; source mounted via volumes
 ENTRYPOINT ["mvn","spring-boot:run"]
 
