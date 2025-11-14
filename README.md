@@ -12,6 +12,21 @@ Projeto desenvolvido para disciplina de DevOps
 
 O DevContainer oferece um ambiente de desenvolvimento completo e isolado, com todas as dependências configuradas.
 
+````markdown
+# confeitaria-backend-devops
+Projeto desenvolvido para disciplina de DevOps
+
+## Pré-requisitos
+
+- Docker e Docker Compose instalados
+- VS Code (opcional, para usar DevContainer)
+
+## Como rodar
+
+### Opção 1: DevContainer (Recomendado para desenvolvimento)
+
+O DevContainer oferece um ambiente de desenvolvimento completo e isolado, com todas as dependências configuradas.
+
 1. **Clone o repositório:**
    ```bash
    git clone https://github.com/igorbatistadev/confeitaria-backend-devops.git
@@ -147,3 +162,36 @@ docker compose build app
 ```bash
 docker compose --profile prod build app-prod
 ```
+
+## Configuração via ConfigMap (Helm)
+
+O chart Helm inclui um recurso opcional `ConfigMap` que facilita fornecer configurações não sensíveis para a aplicação sem precisar rebuildar a imagem.
+
+- **Onde está:** `helm/confeitaria-backend-devops/templates/configmap.yaml`
+- **Ativado por:** `config.enabled` no `values-*.yaml` (`true` por padrão nos `values` deste repositório).
+- **O que contém:** o mapa `config.data` em `values-dev.yaml` / `values-prod.yaml` 
+ Exemplo:
+
+```yaml
+config:
+  enabled: true
+  data:
+    SPRING_PROFILES_ACTIVE: "dev"
+    LOG_LEVEL_ROOT: "DEBUG"
+```
+
+- **Como é injetado no pod:** o `Deployment` usa `envFrom.configMapRef` para expor todas as chaves do `ConfigMap` como variáveis de ambiente no container. Assim, chaves como `SPRING_PROFILES_ACTIVE` estarão disponíveis para a aplicação como variáveis de ambiente.
+
+- **Como usar:**
+  - Instalação com valores de produção:
+    ```bash
+    helm upgrade --install confeitaria ./helm/confeitaria-backend-devops -f helm/confeitaria-backend-devops/values-prod.yaml
+    ```
+  - Sobrescrever uma chave na linha de comando:
+    ```bash
+    helm upgrade --install confeitaria ./helm/confeitaria-backend-devops --set config.data.LOG_LEVEL_ROOT=INFO
+    ```
+
+- **Montagem como arquivo:** se preferir ler arquivos de configuração (p.ex. `application.yaml`), é possível montar o `ConfigMap` como `volume` no `Deployment` em vez de usar `envFrom`.
+
+- **Segurança:** Não coloque senhas ou tokens no `ConfigMap` versionado — use `Secret` ou um gerenciador seguro (Vault, SealedSecrets). O chart já fornece um `Secret` para credenciais do banco.
