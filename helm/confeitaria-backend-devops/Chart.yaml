@@ -4,3 +4,13 @@ description: Um Helm chart para a aplicação Confeitaria Backend
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
+maintainers:
+  - name: Igor Batista
+    email: igor.batista.dev@example.com
+keywords:
+  - confeitaria
+  - backend
+  - spring-boot
+home: https://github.com/igorbatistadev/confeitaria-backend-devops
+sources:
+  - https://github.com/igorbatistadev/confeitaria-backend-devops
