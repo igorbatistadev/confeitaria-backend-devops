@@ -24,12 +24,11 @@ jobs:
 
       - name: 📝 Update Helm values.yaml
         run: |
-          VALUES_FILE="helm/values.yaml"
+          VALUES_FILE="helm/confeitaria-backend-devops/values.yaml"
           NEW_TAG="${{ github.event.inputs.image_tag }}"
           NEW_REPO="${{ github.event.inputs.image_repo }}"
 
           sudo apt-get update && sudo apt-get install -y yq
-
 
           yq e ".image.repository = \"${NEW_REPO}\"" -i $VALUES_FILE
           yq e ".image.tag = \"${NEW_TAG}\"" -i $VALUES_FILE
@@ -42,4 +41,4 @@ jobs:
           commit_message: "chore(helm): Bumping image version to ${{ github.event.inputs.image_tag }} [skip ci]"
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
-          branch: main #
+          branch: main 

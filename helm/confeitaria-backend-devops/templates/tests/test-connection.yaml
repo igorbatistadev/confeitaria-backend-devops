@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ include confeitaria-backend-devops.fullname" . }}
+  name: {{ include "confeitaria-backend-devops.fullname" . }}
   labels:
     {{ include "confeitaria-backend-devops.labels" . | nindent 4 }}
   annotations:
