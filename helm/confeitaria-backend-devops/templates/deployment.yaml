@@ -28,6 +28,8 @@ spec:
         envFrom:
           - secretRef:
               name: {{ .Release.Name }}-db-secret
+          - configMapRef:
+              name: {{ include "confeitaria-backend-devops.fullname" . }}-config
         resources:
           limits:
             cpu: {{ .Values.resources.limits.cpu | quote }}
