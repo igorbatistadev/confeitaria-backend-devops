@@ -1,0 +1,24 @@
+
+service:
+  type: ClusterIP
+  port: 8080
+  internalPort: 8080
+
+database:
+  user: postgres
+  password: root
+  host: postgres
+  name: confeitariadb
+
+image:
+  repository: "igorbatistadev/confeitaria-backend"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
