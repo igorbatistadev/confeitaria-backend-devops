@@ -34,7 +34,7 @@ jobs:
           yq -i '.image.repository = strenv(NEW_REPO)' "$VALUES_FILE"
           yq -i '.image.tag = strenv(NEW_TAG)' "$VALUES_FILE"
 
-          echo "Atualizado $VALUES_FILE com tag: $NEW_TAG
+          echo "Atualizado $VALUES_FILE com tag: $NEW_TAG"
 
       - name: 💾 Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
