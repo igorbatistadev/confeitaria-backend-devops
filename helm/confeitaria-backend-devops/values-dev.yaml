@@ -8,9 +8,13 @@ database:
   host: postgres
   name: confeitariadb
 image:
-  repository: "ghcr.io/${{ github.repository_owner }}/confeitaria-backend-devops"
-  tag: "latest"
+  repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
+  tag: "ab18dd9531678418461486ff293740e965eb9991"
   pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: ghcr-secret
+
 resources:
   limits:
     cpu: "500m"
