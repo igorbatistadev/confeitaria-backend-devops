@@ -1,0 +1,30 @@
+replicaCount: 2
+
+image:
+  repository: "igorbatistadev/confeitaria"
+  tag: "prod"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  internalPort: 8080
+
+resources:
+  limits:
+    cpu: "1000m"
+    memory: "1024Mi"
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+
+migration:
+  enabled: false
+
+# Atenção: credenciais em claro aqui apenas por demanda (recomendado usar um cofre externo)
+database:
+  host: "postgres.prod.svc.cluster.local"
+  port: 5432
+  name: "confeitaria"
+  user: "prod_user"
+  password: "prod_password"
