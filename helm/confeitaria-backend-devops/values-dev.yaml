@@ -2,23 +2,24 @@ service:
   type: ClusterIP
   port: 8080
   internalPort: 8080
+
+replicaCount: 1
+
 database:
   user: postgres
   password: root
   host: postgres
   name: confeitariadb
-image:
-  repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: "ab18dd9531678418461486ff293740e965eb9991"
-  pullPolicy: IfNotPresent
 
-imagePullSecrets:
-  - name: ghcr-secret
+image:
+  repository: "confeitaria-backend-devops"
+  tag: "local"
+  pullPolicy: IfNotPresent
 
 resources:
   limits:
-    cpu: "500m"
-    memory: "512Mi"
-  requests:
-    cpu: "250m"
+    cpu: "200m"
     memory: "256Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
