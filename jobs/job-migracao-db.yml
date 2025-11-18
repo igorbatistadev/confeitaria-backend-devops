@@ -9,6 +9,6 @@ spec:
     spec:
       containers:
         - name: migrator
-          image: ghcr.io/igorbatistadev/confeitaria-backend-devops:c87449201a441bc9ffe10d5c0b5437a7cbc7cebe
+          image: ghcr.io/igorbatistadev/confeitaria-backend-devops:ab18dd9531678418461486ff293740e965eb9991
           command: ["/bin/sh", "-c", "seu-comando-de-migration"]
       restartPolicy: OnFailure

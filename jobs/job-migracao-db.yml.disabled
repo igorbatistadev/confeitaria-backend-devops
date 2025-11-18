@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: confeitaria-db-migration
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: ghcr.io/igorbatistadev/confeitaria-backend-devops:c87449201a441bc9ffe10d5c0b5437a7cbc7cebe
+          command: ["/bin/sh", "-c", "seu-comando-de-migration"]
+      restartPolicy: OnFailure
