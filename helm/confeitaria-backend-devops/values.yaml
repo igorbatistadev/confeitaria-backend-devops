@@ -19,7 +19,6 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
-
 migration:
   enabled: true
   # Se vazio, o Job usará a imagem principal (.Values.image.repository:.Values.image.tag)
