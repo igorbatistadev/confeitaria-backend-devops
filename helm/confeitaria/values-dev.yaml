@@ -1,7 +1,9 @@
+imagePullSecrets:
+  - name: ghcr-secret
 replicaCount: 1
 
 image:
-  repository: "igorbatistadev/confeitaria-backend-devops"
+  repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
   tag: "6937d63202c205adcbf711ff67de9012773a3f2b"
   pullPolicy: IfNotPresent
 
@@ -22,7 +24,7 @@ migration:
   enabled: true
   backoffLimit: 2
   image:
-    repository: "igorbatistadev/confeitaria-backend-devops"
+    repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
     tag: "6937d63202c205adcbf711ff67de9012773a3f2b"
   command: ["java","-jar","/app/migrate.jar"]
 
