@@ -23,7 +23,7 @@ migration:
   backoffLimit: 2
   image:
     repository: "igorbatistadev/confeitaria"
-    tag: "dev"
+    tag: "6937d63202c205adcbf711ff67de9012773a3f2b"
   command: ["java","-jar","/app/migrate.jar"]
 
 # Atenção: credenciais em claro para ambiente de desenvolvimento (não recomendado para produção)
