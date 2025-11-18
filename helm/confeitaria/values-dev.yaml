@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 3
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
   tag: "a9f1c39cb8ff7e44adad7219b27fa6d84c58fceb"
