@@ -34,6 +34,9 @@ jobs:
           yq -i '.image.repository = strenv(NEW_REPO)' "$VALUES_FILE"
           yq -i '.image.tag = strenv(NEW_TAG)' "$VALUES_FILE"
 
+          yq -i '.image.tag = "${{ github.sha }}"' helm/confeitaria/values-dev.yaml
+          yq -i '.migration.image.tag = "${{ github.sha }}"' helm/confeitaria/values-dev.yaml
+
           echo "Atualizado $VALUES_FILE com tag: $NEW_TAG"
 
       - name: 💾 Commit and Push changes
