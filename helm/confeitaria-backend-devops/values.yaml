@@ -19,3 +19,19 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
+
+migration:
+  enabled: true
+  # Se vazio, o Job usará a imagem principal (.Values.image.repository:.Values.image.tag)
+  image:
+    repository: ""
+    tag: ""
+    pullPolicy: IfNotPresent
+  # comando padrão que executa apenas as migrations; ajuste conforme sua imagem
+  command:
+    - "sh"
+    - "-c"
+    - |-
+      java -jar /app/app.jar --spring.flyway.enabled=true --spring.main.web-application-type=none
+  backoffLimit: 4
+  activeDeadlineSeconds: 600
