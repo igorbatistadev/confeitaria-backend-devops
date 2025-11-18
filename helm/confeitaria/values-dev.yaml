@@ -1,5 +1,3 @@
-imagePullSecrets:
-  - name: ghcr-secret
 replicaCount: 1
 
 image:
