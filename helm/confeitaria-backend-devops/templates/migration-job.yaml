@@ -3,7 +3,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ include "confeitaria-backend-devops.fullname" . }}-migrations
-  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ include "confeitaria-backend-devops.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
