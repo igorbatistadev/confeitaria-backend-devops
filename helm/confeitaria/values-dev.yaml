@@ -1,8 +1,8 @@
-replicaCount: 1
+replicaCount: 3
 
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: "6937d63202c205adcbf711ff67de9012773a3f2b"
+  tag: ""
   pullPolicy: IfNotPresent
 
 service:
@@ -22,8 +22,12 @@ migration:
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: "6937d63202c205adcbf711ff67de9012773a3f2b"
-  command: ["java","-jar","/app/migrate.jar"]
+    tag: ""
+  command:
+    - "sh"
+    - "-c"
+    - |-
+      java -jar /app/app.jar --spring.flyway.enabled=true --spring.main.web-application-type=none
 
 # Atenção: credenciais em claro para ambiente de desenvolvimento (não recomendado para produção)
 database:
