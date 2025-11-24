@@ -1,7 +1,7 @@
 replicaCount: 3
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: "a6ce77c4bff611a0baffca27133eaafad623f3fe"
+  tag: "e9da59730e6b9b513b78efcb64b452836306b6dd"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
@@ -19,7 +19,7 @@ migration:
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: "a6ce77c4bff611a0baffca27133eaafad623f3fe"
+    tag: "e9da59730e6b9b513b78efcb64b452836306b6dd"
   command:
     - "sh"
     - "-c"
