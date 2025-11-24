@@ -18,15 +18,3 @@ EXPOSE 8080
 ARG JAR_FILE=target/*.jar
 COPY --from=build /app/${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
-
-# ---------- Dev runtime (runs spring-boot with hot reload)
-FROM maven:3.9.5-eclipse-temurin-21-alpine AS dev
-WORKDIR /app
-# Pre-fetch dependencies to speed up first run; source will be mounted at runtime
-COPY pom.xml .
-RUN mvn -q -B dependency:go-offline
-# Default command runs Spring Boot in dev mode; source mounted via volumes
-ENTRYPOINT ["mvn","spring-boot:run"]
-
-
-
