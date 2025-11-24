@@ -45,4 +45,4 @@ jobs:
           commit_message: "chore(helm): Bumping image version to ${{ github.event.inputs.image_tag }} [skip ci]"
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
-          branch: main 
+          branch: main
