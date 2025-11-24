@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
@@ -36,3 +36,4 @@ database:
   name: "confeitaria_dev"
   user: "dev_user"
   password: "dev_password"
+
