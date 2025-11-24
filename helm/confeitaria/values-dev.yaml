@@ -1,10 +1,8 @@
 replicaCount: 1
-
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: ""
+  tag: "841be04f79a9a08ac883ba95e23145607210d225"
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 80
@@ -16,19 +14,17 @@ resources:
   requests:
     cpu: "150m"
     memory: "128Mi"
-
 migration:
   enabled: true
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: ""
+    tag: "841be04f79a9a08ac883ba95e23145607210d225"
   command:
     - "sh"
     - "-c"
     - |-
       java -jar /app/app.jar --spring.flyway.enabled=true --spring.main.web-application-type=none
-
 # Atenção: credenciais em claro para ambiente de desenvolvimento (não recomendado para produção)
 database:
   host: "confeitaria-postgres"
@@ -36,4 +32,3 @@ database:
   name: "confeitaria_dev"
   user: "dev_user"
   password: "dev_password"
-
