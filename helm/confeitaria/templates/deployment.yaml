@@ -61,8 +61,7 @@ spec:
             httpGet:
               path: /actuator/health
               port: http
-            # increased to allow longer startup and migrations
-            initialDelaySeconds: 120
+            initialDelaySeconds: 600
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
@@ -70,8 +69,7 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: http
-            # give the app more time to become ready after startup/migrations
-            initialDelaySeconds: 60
+            initialDelaySeconds: 600
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 3
