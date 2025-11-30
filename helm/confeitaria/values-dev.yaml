@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: "8ab8d7180701038cafba61952ee6cded12c28b4d"
+  tag: "4e1c2e4d319a1a2b8a1207ed33db6569bdc1b110"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
@@ -19,7 +19,7 @@ migration:
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: "8ab8d7180701038cafba61952ee6cded12c28b4d"
+    tag: "4e1c2e4d319a1a2b8a1207ed33db6569bdc1b110"
   command: ["java", "-jar", "/app/app.jar", "--spring.flyway.enabled=true", "--spring.main.web-application-type=none"]
 database:
   createSecret: false
