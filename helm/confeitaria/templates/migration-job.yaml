@@ -27,28 +27,28 @@ spec:
           command: {{ toYaml .Values.migration.command | nindent 12 }}
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+              value: {{ (print "jdbc:postgresql://" .Values.database.host ":" .Values.database.port "/" .Values.database.name) | quote }}
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: username
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "username" .Values.database.usernameKey | quote }}
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: password
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "password" .Values.database.passwordKey | quote }}
             - name: SPRING_FLYWAY_URL
-              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+              value: {{ (print "jdbc:postgresql://" .Values.database.host ":" .Values.database.port "/" .Values.database.name) | quote }}
             - name: SPRING_FLYWAY_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: username
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "username" .Values.database.usernameKey | quote }}
             - name: SPRING_FLYWAY_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: password
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "password" .Values.database.passwordKey | quote }}
       activeDeadlineSeconds: {{ default 600 .Values.migration.activeDeadlineSeconds }}
 {{- end }}
