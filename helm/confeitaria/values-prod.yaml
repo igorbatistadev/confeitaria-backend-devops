@@ -21,10 +21,10 @@ resources:
 migration:
   enabled: false
 
-# Atenção: credenciais em claro aqui apenas por demanda (recomendado usar um cofre externo)
 database:
-  host: "postgres.prod.svc.cluster.local"
+  createSecret: false
+  secretName: "postgres-prod-app"
+  host: "postgres-prod-rw.myapp-prod.svc.cluster.local"
   port: 5432
-  name: "confeitaria"
-  user: "prod_user"
-  password: "prod_password"
+  name: "appdb"
+  user: "appuser"

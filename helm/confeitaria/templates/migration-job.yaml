@@ -25,8 +25,30 @@ spec:
           {{- end }}
           imagePullPolicy: {{ default "IfNotPresent" .Values.migration.image.pullPolicy }}
           command: {{ toYaml .Values.migration.command | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: {{ .Release.Name }}-db-secret
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: password
+            - name: SPRING_FLYWAY_URL
+              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+            - name: SPRING_FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: username
+            - name: SPRING_FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: password
       activeDeadlineSeconds: {{ default 600 .Values.migration.activeDeadlineSeconds }}
 {{- end }}

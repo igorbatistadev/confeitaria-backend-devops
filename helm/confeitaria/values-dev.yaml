@@ -19,16 +19,13 @@ migration:
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: "c62104463065829ea4ecd313c1111bd7b12b5563"
-  command:
-    - "sh"
-    - "-c"
-    - |-
-      java -jar /app/app.jar --spring.flyway.enabled=true --spring.main.web-application-type=none
-# Atenção: credenciais em claro para ambiente de desenvolvimento (não recomendado para produção)
+    tag: "4565d1fc0a068167da5fcae9a6a7dc3a4ea2f3ed"
+  command: ["java", "-jar", "/app/migrate.jar"]
+
 database:
-  host: "confeitaria-postgres"
-  port: "5432"
-  name: "confeitaria_dev"
-  user: "dev_user"
-  password: "dev_password"
+  createSecret: false
+  secretName: "postgres-dev-app"
+  host: "postgres-dev-rw.myapp-dev.svc.cluster.local"
+  port: 5432
+  name: "appdb"
+  user: "appuser"

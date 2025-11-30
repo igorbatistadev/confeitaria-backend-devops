@@ -32,3 +32,5 @@ database:
   name: ""
   user: ""
   password: ""
+  createSecret: true
+  secretName: ""
