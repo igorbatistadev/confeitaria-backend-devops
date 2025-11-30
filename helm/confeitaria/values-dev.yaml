@@ -20,7 +20,7 @@ migration:
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
     tag: "c770e048b6eada2c2cfc417a988920fc33fd3e9b"
-  command: ["java", "-jar", "/app/migrate.jar"]
+  command: ["java", "-jar", "/app/app.jar", "--spring.flyway.enabled=true", "--spring.main.web-application-type=none"]
 database:
   createSecret: false
   secretName: "db-credentials"
