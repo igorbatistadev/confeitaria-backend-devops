@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-  tag: "c62104463065829ea4ecd313c1111bd7b12b5563"
+  tag: "8d1912f5d0aa1d7e90634c254da9b56f3b81c0c0"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
@@ -19,9 +19,8 @@ migration:
   backoffLimit: 2
   image:
     repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
-    tag: "4565d1fc0a068167da5fcae9a6a7dc3a4ea2f3ed"
+    tag: "8d1912f5d0aa1d7e90634c254da9b56f3b81c0c0"
   command: ["java", "-jar", "/app/migrate.jar"]
-
 database:
   createSecret: false
   secretName: "postgres-dev-app"
