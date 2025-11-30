@@ -23,7 +23,7 @@ migration:
   command: ["java", "-jar", "/app/migrate.jar"]
 database:
   createSecret: false
-  secretName: "postgres-dev-app"
+  secretName: "db-credentials"
   host: "postgres-dev-rw.myapp-dev.svc.cluster.local"
   port: 5432
   name: "appdb"

@@ -23,7 +23,7 @@ migration:
 
 database:
   createSecret: false
-  secretName: "postgres-prod-app"
+  secretName: "db-credentials"
   host: "postgres-prod-rw.myapp-prod.svc.cluster.local"
   port: 5432
   name: "appdb"
