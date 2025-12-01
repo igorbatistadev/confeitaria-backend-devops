@@ -37,6 +37,9 @@ jobs:
           yq -i '.image.tag = "${{ github.sha }}"' helm/confeitaria/values-dev.yaml
           yq -i '.migration.image.tag = "${{ github.sha }}"' helm/confeitaria/values-dev.yaml
 
+          yq -i '.image.tag = "${{ github.sha }}"' helm/confeitaria/values-prod.yaml
+          yq -i '.migration.image.tag = "${{ github.sha }}"' helm/confeitaria/values-prod.yaml
+
           echo "Atualizado $VALUES_FILE com tag: $NEW_TAG"
 
       - name: 💾 Commit and Push changes
