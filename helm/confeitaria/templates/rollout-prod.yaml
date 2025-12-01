@@ -85,11 +85,4 @@ spec:
         
         - setWeight: 100
       
-      analysis:
-        templates:
-          - templateName: success-rate
-        startingStep: 1 
-        args:
-          - name: service-name
-            value: {{ .Release.Name }}-app-canary
 {{- end }}

@@ -66,25 +66,9 @@ spec:
   
   strategy:
     blueGreen:
-      activeService: {{ .Release.Name }}-app-active
-      
-      previewService: {{ .Release.Name }}-app-preview
-      
-      autoPromotionEnabled: false
-      
+      activeService: {{ .Release.Name }}-app-active      
+      previewService: {{ .Release.Name }}-app-preview      
+      autoPromotionEnabled: false      
       scaleDownDelaySeconds: 30
-      
-      prePromotionAnalysis:
-        templates:
-          - templateName: success-rate
-        args:
-          - name: service-name
-            value: {{ .Release.Name }}-app-preview
-      
-      postPromotionAnalysis:
-        templates:
-          - templateName: success-rate
-        args:
-          - name: service-name
-            value: {{ .Release.Name }}-app-active
+
 {{- end }}
