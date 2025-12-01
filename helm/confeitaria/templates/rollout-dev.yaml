@@ -1,4 +1,3 @@
-{{- if eq .Release.Namespace "myapp-dev" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -87,4 +86,3 @@ spec:
         args:
           - name: service-name
             value: {{ .Release.Name }}-app-active
-{{- end }}
