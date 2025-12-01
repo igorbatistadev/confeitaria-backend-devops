@@ -72,7 +72,7 @@ spec:
       
       steps:
         - setWeight: 20
-        - pause: {}  # Pausa manual (para demonstração)
+        - pause: { duration: 30s } 
         
         - setWeight: 40
         - pause: { duration: 30s } 
