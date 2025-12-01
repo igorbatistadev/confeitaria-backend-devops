@@ -1,3 +1,4 @@
+{{- if eq .Release.Namespace "myapp-prod" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -91,3 +92,4 @@ spec:
         args:
           - name: service-name
             value: {{ .Release.Name }}-app-canary
+{{- end }}
