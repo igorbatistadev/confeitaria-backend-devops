@@ -20,6 +20,6 @@ public class DevOpsController {
 
     @GetMapping
     public String listarClientes() {
-        return "Olá Ivo!";
+        return "Olá Ivo! v1.0";
     }
 }
