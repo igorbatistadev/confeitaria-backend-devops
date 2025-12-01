@@ -1,0 +1,96 @@
+{{- if eq .Release.Namespace "myapp-prod" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-app
+  labels:
+    {{ include "confeitaria.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "confeitaria.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "confeitaria.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ include "confeitaria.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.internalPort }}
+              protocol: TCP
+          
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ (print "jdbc:postgresql://" .Values.database.host ":" .Values.database.port "/" .Values.database.name) | quote }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "username" .Values.database.usernameKey | quote }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "password" .Values.database.passwordKey | quote }}
+            - name: SPRING_FLYWAY_URL
+              value: {{ (print "jdbc:postgresql://" .Values.database.host ":" .Values.database.port "/" .Values.database.name) | quote }}
+            - name: SPRING_FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "username" .Values.database.usernameKey | quote }}
+            - name: SPRING_FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-db-secret" .Release.Name) .Values.database.secretName | quote }}
+                  key: {{ default "password" .Values.database.passwordKey | quote }}
+          
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
+  
+  strategy:
+    canary:
+      stableService: {{ .Release.Name }}-app-stable
+      
+      canaryService: {{ .Release.Name }}-app-canary
+      
+      steps:
+        - setWeight: 20
+        - pause: {}  # Pausa manual (para demonstração)
+        
+        - setWeight: 40
+        - pause: { duration: 30s } 
+        
+        - setWeight: 60
+        - pause: { duration: 30s }
+        
+        - setWeight: 80
+        - pause: { duration: 30s }
+        
+        - setWeight: 100
+      
+      analysis:
+        templates:
+          - templateName: success-rate
+        startingStep: 1 
+        args:
+          - name: service-name
+            value: {{ .Release.Name }}-app-canary
+      
+{{- end }}

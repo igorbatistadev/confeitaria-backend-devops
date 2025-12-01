@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 image:
   repository: "ghcr.io/igorbatistadev/confeitaria-backend-devops"
   tag: "1aa3e82d16373c40e839f617534c35588bd8293b"
@@ -28,3 +28,7 @@ database:
   port: 5432
   name: "appdb"
   user: "appuser"
+
+rollout:
+  enabled: true
+  strategy: bluegreen

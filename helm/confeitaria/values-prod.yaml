@@ -28,3 +28,7 @@ database:
   port: 5432
   name: "appdb"
   user: "appuser"
+
+rollout:
+  enabled: true
+  strategy: canary
